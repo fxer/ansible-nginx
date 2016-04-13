@@ -9,7 +9,7 @@
   run_once: True
 
 - name: Generate Diffie-Hellman params on Ansible Controller
-  command: openssl dhparam -out {{ nginx_system_paths.dhparam_src }}/dhparam{{ item }}.pem {{ item }}
+  command: openssl dhparam -out {{ nginx_dhparam_src_dir }}/dhparam{{ item }}.pem {{ item }}
   args:
     creates: "{{ nginx_dhparam_src_dir }}/dhparam{{ item }}.pem"
   with_items: "{{ nginx_dhparam_keysizes }}"
