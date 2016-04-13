@@ -1,6 +1,7 @@
-## Ansible role to manage nginx configuraiton
- 
-### Tasks
+## Ansible Role: Nginx
+Install, optimize and harden nginx on RedHat/CentOS 7 servers
+
+## Tasks
 * Install official nginx repo (stable or mainline branch)
 * Install latest nginx
 * Install vim syntax highlighting
@@ -9,4 +10,4 @@
 * Configure an optimized nginx.conf
 
 ## License
-MIT / BSD
+2-clause BSD
