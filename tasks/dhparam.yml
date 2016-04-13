@@ -1,0 +1,29 @@
+---
+# Adapted from https://github.com/debops/ansible-dhparam
+
+- name: Create required directories on Ansible Controller
+  file:
+    path: "{{ nginx_dhparam_src_dir }}"
+    state: 'directory'
+  delegate_to: 'localhost'
+  run_once: True
+
+- name: Generate Diffie-Hellman params on Ansible Controller
+  command: openssl dhparam -out {{ nginx_system_paths.dhparam_src }}/dhparam{{ item }}.pem {{ item }}
+  args:
+    creates: "{{ nginx_dhparam_src_dir }}/dhparam{{ item }}.pem"
+  with_items: "{{ nginx_dhparam_keysizes }}"
+  delegate_to: 'localhost'
+  run_once: True
+
+- name: Install Diffie-Hellman params
+  copy:
+    src: "{{ nginx_dhparam_src_dir }}/dhparam{{ item }}.pem"
+    dest: "{{ nginx_certs_dir }}"
+    owner: root
+    group: root
+    mode: 0600
+  become: yes
+  with_items: "{{ nginx_dhparam_keysizes }}"
+  notify:
+    - reload nginx

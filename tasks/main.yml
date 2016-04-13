@@ -1,0 +1,6 @@
+---
+- include: nginx.yml
+  tags: ['nginx']
+
+- include: dhparam.yml
+  tags: ['dhparam']
