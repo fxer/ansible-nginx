@@ -6,11 +6,9 @@
     owner: root
     group: root
     mode: 0644
-  become: yes
 
 - name: Install nginx
   yum: name=nginx state=latest update_cache=yes
-  become: yes
   notify:
     - restart nginx
 
@@ -21,7 +19,6 @@
     owner: root
     group: root
     mode: 0644
-  become: yes
   with_items:
     - { filename: fastcgi.conf, dest_path: "{{ nginx_dir }}/fastcgi.conf" }
 
@@ -32,7 +29,6 @@
     owner: root
     group: root
     mode: 0644
-  become: yes
   with_items:
     - 'syntax/nginx.vim'
     - 'ftdetect/nginx.vim'
@@ -46,7 +42,6 @@
     group: root
     mode: 0644
     backup: yes
-  become: yes
   notify:
     - reload nginx
 
@@ -58,7 +53,6 @@
     group: root
     mode: 0644
   with_items: "{{ nginx_sites_enabled }}"
-  become: yes
   notify:
     - reload nginx
   tags: ['nginx-sites']

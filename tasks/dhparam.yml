@@ -23,7 +23,6 @@
     owner: root
     group: root
     mode: 0600
-  become: yes
   with_items: "{{ nginx_dhparam_keysizes }}"
   notify:
     - reload nginx
