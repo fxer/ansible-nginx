@@ -1,8 +1,8 @@
 # Default filesystem paths on CentOS 7
-nginx_dir: '/etc/nginx'
-nginx_certs_dir: '/etc/pki/tls/certs'
-nginx_vim_syntax_dir: '/usr/share/vim/vimfiles'
-nginx_dhparam_src_dir: 'secret' # relative directory to store dhparam files in
+nginx_path: '/etc/nginx'
+nginx_certs_path: '/etc/pki/tls/certs'
+nginx_vim_syntax_path: '/usr/share/vim/vimfiles'
+nginx_dhparam_src_path: 'secret' # relative directory to store dhparam files in
 
 nginx_vim_syntax_url: 'http://hg.nginx.org/nginx/raw-file/tip/contrib/vim/'
 nginx_repo_version: 'mainline' # Official nginx repo: 'stable' or 'mainline' (dev branch)
@@ -43,9 +43,9 @@ nginx_ssl_ciphers: 'ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:EC
 nginx_dhparam_keysizes: ['2048']
 
 nginx_default_ssl_config: |
-  ssl_dhparam {{ nginx_certs_dir }}/dhparam{{ nginx_dhparam_keysizes[0] }}.pem;
-  ssl_certificate {{ nginx_certs_dir }}/{{ ssl_certificate_filename }};
-  ssl_certificate_key {{ nginx_certs_dir }}/{{ ssl_certificate_key_filename }};
+  ssl_dhparam {{ nginx_certs_path }}/dhparam{{ nginx_dhparam_keysizes[0] }}.pem;
+  ssl_certificate {{ nginx_certs_path }}/{{ ssl_certificate_filename }};
+  ssl_certificate_key {{ nginx_certs_path }}/{{ ssl_certificate_key_filename }};
 
 nginx_default_http_headers: |
   add_header X-XSS-Protection "1; mode=block";
@@ -99,10 +99,10 @@ nginx_default_https_listen: |
 #
 #      {{ nginx_default_https_headers }}
 #
-#      ssl_dhparam {{ nginx_certs_dir }}/dhparam2048.pem;
+#      ssl_dhparam {{ nginx_certs_path }}/dhparam2048.pem;
 #      ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;
 #      ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
-#      ssl_trusted_certificate {{ nginx_certs_dir }}/ocsp-certs.pem; # contains root cert for oscp
+#      ssl_trusted_certificate {{ nginx_certs_path }}/ocsp-certs.pem; # contains root cert for oscp
 #
 #      {{ nginx_default_ocsp_stapling }}
 #
