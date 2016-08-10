@@ -12,6 +12,14 @@
   notify:
     - restart nginx
 
+- name: Configure firewalld ports
+  firewalld:
+    port: "{{ item }}/tcp"
+    permanent: true
+    immediate: true
+    state: enabled
+  with_items: "{{ nginx_firewall_ports }}"
+
 - name: Install supplemental configs (FastCGI)
   copy:
     src: "{{ item.filename }}"

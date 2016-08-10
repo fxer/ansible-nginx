@@ -3,22 +3,22 @@
 
 - name: Create required directories on Ansible Controller
   file:
-    path: "{{ nginx_dhparam_src_path }}"
+    path: "{{ nginx_local_files }}"
     state: 'directory'
   delegate_to: 'localhost'
   run_once: True
 
 - name: Generate Diffie-Hellman params on Ansible Controller
-  command: openssl dhparam -out {{ nginx_dhparam_src_path }}/dhparam{{ item }}.pem {{ item }}
+  command: openssl dhparam -out {{ nginx_local_files }}/dhparam{{ item }}.pem {{ item }}
   args:
-    creates: "{{ nginx_dhparam_src_path }}/dhparam{{ item }}.pem"
+    creates: "{{ nginx_local_files }}/dhparam{{ item }}.pem"
   with_items: "{{ nginx_dhparam_keysizes }}"
   delegate_to: 'localhost'
   run_once: True
 
 - name: Install Diffie-Hellman params
   copy:
-    src: "{{ nginx_dhparam_src_path }}/dhparam{{ item }}.pem"
+    src: "{{ nginx_local_files }}/dhparam{{ item }}.pem"
     dest: "{{ nginx_certs_path }}"
     owner: root
     group: root
